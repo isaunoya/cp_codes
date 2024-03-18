@@ -1,0 +1,89 @@
+#include <bits/stdc++.h>
+#ifndef LOCAL
+#define debug(...) 42
+#endif
+using namespace std;
+#define tr(x, v) for (auto &x : v)
+#define rp(i, v) for (int i = 0; i < sz(v); i++)
+#define rep(i, x, y) for (int i = x; i < y; i++)
+#define pr(i, v) for (int i = sz(v) - 1; i >= 0; i--)
+#define per(i, x, y) for (int i = x; i > y; i--)
+template <typename T, typename T2> void cmin(T &x, const T2 &y) {
+  if (x > y)
+    x = y;
+}
+template <typename T, typename T2> void cmax(T &x, const T2 &y) {
+  if (x < y)
+    x = y;
+}
+using ll = long long;
+using E = vector<vector<int>>;
+using EW = vector<vector<array<int, 2>>>;
+mt19937 rng(time(NULL));
+const int inf = 1000000000;
+const ll lnf = 1000000000000000000;
+#define sz(x) int((x).size())
+#define bg(x) begin(x)
+#define ed(x) end(x)
+#define all(x) bg(x), ed(x)
+#define lb lower_bound
+#define ub upper_bound
+#define unique(x) (x).erase(unique(all(x)), x.end())
+void out(bool t) { cout << (t ? "YES" : "NO") << "\n"; }
+template <class T> T max(const vector<T> &v) { return *max_element(all(v)); }
+template <class T> T min(const vector<T> &v) { return *min_element(all(v)); }
+template <class T> istream &operator>>(istream &is, vector<T> &v) {
+  tr(x, v) { is >> x; }
+  return is;
+}
+template <class T> ostream &operator<<(ostream &os, const vector<T> &v) {
+  if (v.empty()) {
+    os << "\n";
+  } else {
+    rp(i, v) os << v[i] << " \n"[i + 1 == (int)v.size()];
+  }
+  return os;
+}
+
+void run_case() {
+  int n;
+  cin >> n;
+  vector<int> a(n);
+  tr(x, a) cin >> x;
+  if (min(a) == max(a)) {
+    cout << "0"
+         << "\n";
+    return;
+  }
+  if (min(a) == 1) {
+    cout << "-1"
+         << "\n";
+    return;
+  }
+
+  vector<pair<int, int>> ops;
+  while (min(a) != max(a)) {
+    int p = min_element(a.begin(), a.end()) - a.begin();
+    for (int i = 0; i < n; i++) {
+      while (a[i] > a[p])
+        a[i] = (a[i] - 1) / a[p] + 1, ops.emplace_back(i, p);
+    }
+  }
+  cout << sz(ops) << "\n";
+  for (auto [x, y] : ops) {
+    cout << x + 1 << " " << y + 1 << "\n";
+  }
+  return;
+}
+
+int main() {
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
+  int tt;
+  cin >> tt;
+  while (tt--) {
+    run_case();
+  }
+
+  return 0;
+}

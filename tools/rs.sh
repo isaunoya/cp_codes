@@ -1,0 +1,1 @@
+g++ -std=c++23 -O2 -Wall -DLOCAL  $1.cpp -o $1 -Wl,--stack=1234567890 && ./$1
